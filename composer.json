@@ -1,0 +1,20 @@
+{
+    "name": "avnsh1111/theme-installer",
+    "description": "Open Source Admin Theme Installer",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Avnsh1111\\ThemeInstaller\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Avinash Rathod",
+            "email": "er.avinashrathod@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.3|^8.0|^8.2",
+        "illuminate/support": "^8.0|^10.0"
+    }
+}
