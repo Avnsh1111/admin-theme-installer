@@ -28,6 +28,15 @@ class InstallTheme extends Command
         // Current Dir
         $currentDir =__DIR__;
 
+        // GitHub repository URL
+        $githubRepoUrl = 'https://github.com/Avnsh1111/admin-themes/raw/master/'.$themeName.'.zip';
+
+        // Destination folder to extract the zip file
+        $destinationFolder = $currentDir."/../../Themes/";
+
+        // Download and extract the zip file
+        $this->downloadAndExtractZip($githubRepoUrl, $destinationFolder);
+
         $this->info("Copying controllers...");
         // Copy Controllers
         $controllerFolder = $currentDir."/../../Themes/Common/Controllers";
@@ -81,6 +90,33 @@ class InstallTheme extends Command
 
         // Display a message to inform the user that the theme was installed successfully
         $this->info("Theme '{$themeName}' has been installed successfully.");
+    }
+
+    private function downloadAndExtractZip($url, $destinationFolder)
+{
+        // Download the zip file
+        $zipFile = file_get_contents($url);
+        if ($zipFile === false) {
+            echo "Failed to download the zip file.";
+            return;
+        }
+
+        // Save the zip file
+        $tempFile = tempnam(sys_get_temp_dir(), 'githubzip');
+        file_put_contents($tempFile, $zipFile);
+
+        // Extract the zip file
+        $zip = new \ZipArchive;
+        if ($zip->open($tempFile) === true) {
+            $zip->extractTo($destinationFolder);
+            $zip->close();
+            echo "Zip file extracted successfully.";
+        } else {
+            echo "Failed to extract the zip file.";
+        }
+
+        // Delete the temporary zip file
+        unlink($tempFile);
     }
 
     private function copyFolder($src, $dst) {
